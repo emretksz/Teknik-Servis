@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b7f8a42004d84b04ab7c0165eaee5194" Name="Diagram1">
+        <EntityTypeShape EntityType="FS_TechnicalService_2021_DbModel.FaultTypes" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FS_TechnicalService_2021_DbModel.ProductTypes" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FS_TechnicalService_2021_DbModel.RepairSituations" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FS_TechnicalService_2021_DbModel.UserDetails" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FS_TechnicalService_2021_DbModel.Users" Width="1.5" PointX="0.75" PointY="4.125" />
+        <AssociationConnector Association="FS_TechnicalService_2021_DbModel.FK_UserDetails_Users" />
+        <EntityTypeShape EntityType="FS_TechnicalService_2021_DbModel.Products" Width="1.5" PointX="3" PointY="3.625" />
+        <AssociationConnector Association="FS_TechnicalService_2021_DbModel.FK_Products_ProductTypes" />
+        <AssociationConnector Association="FS_TechnicalService_2021_DbModel.FK_Products_RepairSituations" />
+        <AssociationConnector Association="FS_TechnicalService_2021_DbModel.FK_Products_Users" />
+        <AssociationConnector Association="FS_TechnicalService_2021_DbModel.ProductToFaultTypes" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

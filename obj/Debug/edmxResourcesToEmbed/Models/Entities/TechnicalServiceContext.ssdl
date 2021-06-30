@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FS_TechnicalService_2021_DbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="FaultTypes">
+    <Key>
+      <PropertyRef Name="FaultTypeId" />
+    </Key>
+    <Property Name="FaultTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RegisterDate" Type="smalldatetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductTypeId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="RepairStatusId" Type="int" />
+    <Property Name="Name" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="ProductNumber" Type="varchar" MaxLength="4" Nullable="false" />
+    <Property Name="DeliveryCustomer" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsBoxed" Type="bit" Nullable="false" />
+    <Property Name="TakeDate" Type="smalldatetime" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="ProductToFaultTypes">
+    <Key>
+      <PropertyRef Name="ProductId" />
+      <PropertyRef Name="FaultTypeId" />
+    </Key>
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="FaultTypeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductTypes">
+    <Key>
+      <PropertyRef Name="ProductTypeId" />
+    </Key>
+    <Property Name="ProductTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="RegisterDate" Type="smalldatetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RepairSituations">
+    <Key>
+      <PropertyRef Name="RepairStatusId" />
+    </Key>
+    <Property Name="RepairStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RegisterDate" Type="smalldatetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserDetails">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Birthdate" Type="smalldatetime" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Gender" Type="bit" Nullable="false" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="RegisterDate" Type="smalldatetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="isRole" Type="bit" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="NameSurname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Products_ProductTypes">
+    <End Role="ProductTypes" Type="Self.ProductTypes" Multiplicity="1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductTypes">
+        <PropertyRef Name="ProductTypeId" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="ProductTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_RepairSituations">
+    <End Role="RepairSituations" Type="Self.RepairSituations" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RepairSituations">
+        <PropertyRef Name="RepairStatusId" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="RepairStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductToFaultTypes_FaultTypes">
+    <End Role="FaultTypes" Type="Self.FaultTypes" Multiplicity="1" />
+    <End Role="ProductToFaultTypes" Type="Self.ProductToFaultTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FaultTypes">
+        <PropertyRef Name="FaultTypeId" />
+      </Principal>
+      <Dependent Role="ProductToFaultTypes">
+        <PropertyRef Name="FaultTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductToFaultTypes_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="ProductToFaultTypes" Type="Self.ProductToFaultTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductToFaultTypes">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserDetails_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserDetails">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FS_TechnicalService_2021_DbModelStoreContainer">
+    <EntitySet Name="FaultTypes" EntityType="Self.FaultTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductToFaultTypes" EntityType="Self.ProductToFaultTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductTypes" EntityType="Self.ProductTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RepairSituations" EntityType="Self.RepairSituations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Products_ProductTypes" Association="Self.FK_Products_ProductTypes">
+      <End Role="ProductTypes" EntitySet="ProductTypes" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_RepairSituations" Association="Self.FK_Products_RepairSituations">
+      <End Role="RepairSituations" EntitySet="RepairSituations" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Users" Association="Self.FK_Products_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductToFaultTypes_FaultTypes" Association="Self.FK_ProductToFaultTypes_FaultTypes">
+      <End Role="FaultTypes" EntitySet="FaultTypes" />
+      <End Role="ProductToFaultTypes" EntitySet="ProductToFaultTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductToFaultTypes_Products" Association="Self.FK_ProductToFaultTypes_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ProductToFaultTypes" EntitySet="ProductToFaultTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserDetails_Users" Association="Self.FK_UserDetails_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserDetails" EntitySet="UserDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

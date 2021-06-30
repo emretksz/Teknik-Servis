@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FS_TechnicalService_2021_DbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="FaultTypes">
+    <Key>
+      <PropertyRef Name="FaultTypeId" />
+    </Key>
+    <Property Name="FaultTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="FS_TechnicalService_2021_DbModel.ProductToFaultTypes" FromRole="FaultTypes" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="ProductTypes">
+    <Key>
+      <PropertyRef Name="ProductTypeId" />
+    </Key>
+    <Property Name="ProductTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="FS_TechnicalService_2021_DbModel.FK_Products_ProductTypes" FromRole="ProductTypes" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="RepairSituations">
+    <Key>
+      <PropertyRef Name="RepairStatusId" />
+    </Key>
+    <Property Name="RepairStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="FS_TechnicalService_2021_DbModel.FK_Products_RepairSituations" FromRole="RepairSituations" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="UserDetails">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Birthdate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Gender" Type="Boolean" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Users" Relationship="FS_TechnicalService_2021_DbModel.FK_UserDetails_Users" FromRole="UserDetails" ToRole="Users" />
+  </EntityType>
+  <EntityContainer Name="TechnicalServiceContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="FaultTypes" EntityType="Self.FaultTypes" />
+    <EntitySet Name="ProductTypes" EntityType="Self.ProductTypes" />
+    <EntitySet Name="RepairSituations" EntityType="Self.RepairSituations" />
+    <EntitySet Name="UserDetails" EntityType="Self.UserDetails" />
+    <EntitySet Name="Users" EntityType="FS_TechnicalService_2021_DbModel.Users" />
+    <AssociationSet Name="FK_UserDetails_Users" Association="FS_TechnicalService_2021_DbModel.FK_UserDetails_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserDetails" EntitySet="UserDetails" />
+    </AssociationSet>
+    <EntitySet Name="Products" EntityType="FS_TechnicalService_2021_DbModel.Products" />
+    <AssociationSet Name="FK_Products_ProductTypes" Association="FS_TechnicalService_2021_DbModel.FK_Products_ProductTypes">
+      <End Role="ProductTypes" EntitySet="ProductTypes" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_RepairSituations" Association="FS_TechnicalService_2021_DbModel.FK_Products_RepairSituations">
+      <End Role="RepairSituations" EntitySet="RepairSituations" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Users" Association="FS_TechnicalService_2021_DbModel.FK_Products_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="ProductToFaultTypes" Association="FS_TechnicalService_2021_DbModel.ProductToFaultTypes">
+      <End Role="FaultTypes" EntitySet="FaultTypes" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="isRole" Type="Boolean" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="NameSurname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="UserDetails" Relationship="FS_TechnicalService_2021_DbModel.FK_UserDetails_Users" FromRole="Users" ToRole="UserDetails" />
+    <NavigationProperty Name="Products" Relationship="FS_TechnicalService_2021_DbModel.FK_Products_Users" FromRole="Users" ToRole="Products" />
+  </EntityType>
+  <Association Name="FK_UserDetails_Users">
+    <End Type="FS_TechnicalService_2021_DbModel.Users" Role="Users" Multiplicity="1" />
+    <End Type="FS_TechnicalService_2021_DbModel.UserDetails" Role="UserDetails" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserDetails">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductTypeId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="RepairStatusId" Type="Int32" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="ProductNumber" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="DeliveryCustomer" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsBoxed" Type="Boolean" Nullable="false" />
+    <Property Name="TakeDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ProductTypes" Relationship="FS_TechnicalService_2021_DbModel.FK_Products_ProductTypes" FromRole="Products" ToRole="ProductTypes" />
+    <NavigationProperty Name="RepairSituations" Relationship="FS_TechnicalService_2021_DbModel.FK_Products_RepairSituations" FromRole="Products" ToRole="RepairSituations" />
+    <NavigationProperty Name="Users" Relationship="FS_TechnicalService_2021_DbModel.FK_Products_Users" FromRole="Products" ToRole="Users" />
+    <NavigationProperty Name="FaultTypes" Relationship="FS_TechnicalService_2021_DbModel.ProductToFaultTypes" FromRole="Products" ToRole="FaultTypes" />
+  </EntityType>
+  <Association Name="FK_Products_ProductTypes">
+    <End Type="FS_TechnicalService_2021_DbModel.ProductTypes" Role="ProductTypes" Multiplicity="1" />
+    <End Type="FS_TechnicalService_2021_DbModel.Products" Role="Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductTypes">
+        <PropertyRef Name="ProductTypeId" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="ProductTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_RepairSituations">
+    <End Type="FS_TechnicalService_2021_DbModel.RepairSituations" Role="RepairSituations" Multiplicity="0..1" />
+    <End Type="FS_TechnicalService_2021_DbModel.Products" Role="Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RepairSituations">
+        <PropertyRef Name="RepairStatusId" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="RepairStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Users">
+    <End Type="FS_TechnicalService_2021_DbModel.Users" Role="Users" Multiplicity="1" />
+    <End Type="FS_TechnicalService_2021_DbModel.Products" Role="Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductToFaultTypes">
+    <End Type="FS_TechnicalService_2021_DbModel.FaultTypes" Role="FaultTypes" Multiplicity="*" />
+    <End Type="FS_TechnicalService_2021_DbModel.Products" Role="Products" Multiplicity="*" />
+  </Association>
+</Schema>

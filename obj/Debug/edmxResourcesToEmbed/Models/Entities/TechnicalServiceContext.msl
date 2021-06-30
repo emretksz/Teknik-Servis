@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FS_TechnicalService_2021_DbModelStoreContainer" CdmEntityContainer="TechnicalServiceContext">
+    <EntitySetMapping Name="FaultTypes">
+      <EntityTypeMapping TypeName="FS_TechnicalService_2021_DbModel.FaultTypes">
+        <MappingFragment StoreEntitySet="FaultTypes">
+          <ScalarProperty Name="FaultTypeId" ColumnName="FaultTypeId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductTypes">
+      <EntityTypeMapping TypeName="FS_TechnicalService_2021_DbModel.ProductTypes">
+        <MappingFragment StoreEntitySet="ProductTypes">
+          <ScalarProperty Name="ProductTypeId" ColumnName="ProductTypeId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RepairSituations">
+      <EntityTypeMapping TypeName="FS_TechnicalService_2021_DbModel.RepairSituations">
+        <MappingFragment StoreEntitySet="RepairSituations">
+          <ScalarProperty Name="RepairStatusId" ColumnName="RepairStatusId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserDetails">
+      <EntityTypeMapping TypeName="FS_TechnicalService_2021_DbModel.UserDetails">
+        <MappingFragment StoreEntitySet="UserDetails">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="FS_TechnicalService_2021_DbModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="NameSurname" ColumnName="NameSurname" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="isRole" ColumnName="isRole" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="FS_TechnicalService_2021_DbModel.Products">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TakeDate" ColumnName="TakeDate" />
+          <ScalarProperty Name="IsBoxed" ColumnName="IsBoxed" />
+          <ScalarProperty Name="DeliveryCustomer" ColumnName="DeliveryCustomer" />
+          <ScalarProperty Name="ProductNumber" ColumnName="ProductNumber" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RepairStatusId" ColumnName="RepairStatusId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ProductTypeId" ColumnName="ProductTypeId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ProductToFaultTypes" TypeName="FS_TechnicalService_2021_DbModel.ProductToFaultTypes" StoreEntitySet="ProductToFaultTypes">
+      <EndProperty Name="Products">
+        <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+      </EndProperty>
+      <EndProperty Name="FaultTypes">
+        <ScalarProperty Name="FaultTypeId" ColumnName="FaultTypeId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
